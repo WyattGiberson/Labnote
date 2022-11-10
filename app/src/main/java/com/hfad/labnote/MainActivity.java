@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.recyclerView);
 
         //adapter
-        MyAdapter adapter = new MyAdapter();
+        NoteAdapter adapter = new NoteAdapter(getSupportFragmentManager(), DataBase.getNotes());
         rv.setAdapter(adapter);
 
         //manager connects the above 2

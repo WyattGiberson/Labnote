@@ -7,16 +7,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
     private ArrayList<Note> noteList;
+    private FragmentManager fragmentManger;
 
-    public MyAdapter(){
-        noteList = DataBase.getNotes();
+    public NoteAdapter(FragmentManager man, ArrayList<Note> n){
+        fragmentManger = man;
+        noteList = n;
     }
 
     @NonNull
@@ -47,36 +50,49 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView txtTitle;
         private TextView txtStatus;
         private TextView txtDesc;
-        private ImageView imvDele;
+        private ImageView imvDelete;
+
+
         private int currentPositionInList = -1;
+        private Note currentNote = null;
 
-        public MyViewHolder(@NonNull View itemView){
-            super(itemView);
+        public MyViewHolder(@NonNull View view){
+            super(view);
 
-            txtTitle = itemView.findViewById(R.id.tvTitle);
-            txtStatus = itemView.findViewById(R.id.tvStatus);
-            txtDesc = itemView.findViewById(R.id.tvDescription);
-            imvDele = itemView.findViewById(R.id.imvDelete);
+            txtTitle = view.findViewById(R.id.tvTitle);
+            txtStatus = view.findViewById(R.id.tvStatus);
+            txtDesc = view.findViewById(R.id.tvDescription);
+            imvDelete = view.findViewById(R.id.imvDelete);
 
-            imvDele.setOnClickListener(new View.OnClickListener() {
+            imvDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     noteList.remove(currentPositionInList);
-                    notifyItemChanged(currentPositionInList);
+                    notifyItemRemoved(currentPositionInList);
                     notifyItemRangeChanged(currentPositionInList, noteList.size());
                 }
             });
+
+            view.setClickable(true);
+            view.setOnClickListener(this);
         }
 
-        public void setData(Note vd, int position){
-            txtTitle.setText(vd.getTitle());
-            txtStatus.setText(vd.getStatus());
-            txtDesc.setText(vd.getDescription());
+        public void setData(Note n, int position){
+            txtTitle.setText(n.getTitle());
+            txtStatus.setText(n.getStatus());
+            txtDesc.setText(n.getDescription());
             currentPositionInList = position;
+            currentNote = n;
+        }
+
+        @Override
+        public void onClick(View view) {
+            DialogShowNote dialog = new DialogShowNote(currentNote);
+            dialog.show(fragmentManger, "");
         }
     }
 

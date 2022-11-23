@@ -7,19 +7,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
     private ArrayList<Note> noteList;
-    private FragmentManager fragmentManger;
 
-    public NoteAdapter(FragmentManager man, ArrayList<Note> n){
-        fragmentManger = man;
-        noteList = n;
+    public NoteAdapter(){
+        noteList = DataBase.getNotes();
     }
 
     @NonNull
@@ -68,6 +68,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
             txtDesc = view.findViewById(R.id.tvDescription);
             imvDelete = view.findViewById(R.id.imvDelete);
 
+
             imvDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -91,8 +92,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View view) {
-            DialogShowNote dialog = new DialogShowNote(currentNote);
-            dialog.show(fragmentManger, "");
+            DialogAddNote dialog = new DialogAddNote(noteList);
+            FragmentActivity fa = (FragmentActivity) view.getContext();
+            FragmentManager fm = fa.getSupportFragmentManager();
+            dialog.show(fm, "");
         }
     }
 

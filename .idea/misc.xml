@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2055" />
         <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/activity_main.xml" value="0.29981884057971014" />
+        <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/dialog_add_item.xml" value="0.33" />
         <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/dialog_show_note.xml" value="0.1956521739130435" />
+        <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/note_add_item.xml" value="0.33" />
         <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/note_row_item.xml" value="0.33" />
         <entry key="..\:/(4) Senior/Web Mobile App Development/Labnote/app/src/main/res/layout/vacation_row_item.xml" value="0.1" />
       </map>
